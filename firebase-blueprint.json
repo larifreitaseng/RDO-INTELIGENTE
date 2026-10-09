@@ -1,0 +1,150 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile with role and company information",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["Editor", "Visualizador"] },
+        "companyId": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["email", "displayName", "role"]
+    },
+    "Company": {
+      "title": "Company",
+      "description": "Engineering and construction company registered in the system",
+      "type": "object",
+      "properties": {
+        "corporateName": { "type": "string" },
+        "tradeName": { "type": "string" },
+        "cnpj": { "type": "string" },
+        "contactEmail": { "type": "string" },
+        "contactPhone": { "type": "string" },
+        "technicalLead": { "type": "string" },
+        "creaCau": { "type": "string" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["corporateName", "tradeName", "cnpj", "technicalLead", "creaCau", "createdBy"]
+    },
+    "Work": {
+      "title": "Work",
+      "description": "Construction site or civil engineering project",
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "name": { "type": "string" },
+        "clientName": { "type": "string" },
+        "address": { "type": "string" },
+        "technicalLead": { "type": "string" },
+        "creaCau": { "type": "string" },
+        "startDate": { "type": "string" },
+        "expectedEndDate": { "type": "string" },
+        "status": { "type": "string", "enum": ["Em andamento", "Concluída", "Paralisada", "Planejamento"] },
+        "physicalProgress": { "type": "number" },
+        "driveFolderUrl": { "type": "string" },
+        "companyId": { "type": "string" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["code", "name", "clientName", "technicalLead", "creaCau", "status", "createdBy"]
+    },
+    "TeamMember": {
+      "title": "TeamMember",
+      "description": "Technical team member linked to a construction site",
+      "type": "object",
+      "properties": {
+        "workId": { "type": "string" },
+        "name": { "type": "string" },
+        "category": { "type": "string", "enum": ["Engenheiro", "Mestre", "Encarregado", "Estagiário", "Outro"] },
+        "role": { "type": "string" },
+        "company": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["workId", "name", "category", "role", "createdBy"]
+    },
+    "RDO": {
+      "title": "RDO",
+      "description": "Relatório Diário de Obra (Daily Construction Report)",
+      "type": "object",
+      "properties": {
+        "sequentialNumber": { "type": "number" },
+        "date": { "type": "string" },
+        "workId": { "type": "string" },
+        "workName": { "type": "string" },
+        "status": { "type": "string", "enum": ["Rascunho", "Finalizado"] },
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "weatherMorning": { "type": "string" },
+        "weatherAfternoon": { "type": "string" },
+        "weatherNight": { "type": "string" },
+        "workFronts": { "type": "string" },
+        "activities": { "type": "string" },
+        "progressPercent": { "type": "number" },
+        "labor": { "type": "string" },
+        "equipment": { "type": "string" },
+        "materials": { "type": "string" },
+        "occurrences": { "type": "string" },
+        "safety": { "type": "string" },
+        "observations": { "type": "string" },
+        "photos": { "type": "string" },
+        "pdfGenerated": { "type": "boolean" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["sequentialNumber", "date", "workId", "status", "authorName", "createdBy"]
+    },
+    "DocumentItem": {
+      "title": "DocumentItem",
+      "description": "Project document or photo file record",
+      "type": "object",
+      "properties": {
+        "workId": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string", "enum": ["RDO", "Foto", "Documento"] },
+        "fileUrl": { "type": "string" },
+        "driveFolder": { "type": "string" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["workId", "title", "category", "createdBy"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User profile collection"
+    },
+    "/companies/{companyId}": {
+      "schema": { "$ref": "#/entities/Company" },
+      "description": "Engineering and construction companies"
+    },
+    "/works/{workId}": {
+      "schema": { "$ref": "#/entities/Work" },
+      "description": "Construction sites / works"
+    },
+    "/teamMembers/{memberId}": {
+      "schema": { "$ref": "#/entities/TeamMember" },
+      "description": "Team members linked to works"
+    },
+    "/rdos/{rdoId}": {
+      "schema": { "$ref": "#/entities/RDO" },
+      "description": "Relatórios Diários de Obra"
+    },
+    "/documents/{docId}": {
+      "schema": { "$ref": "#/entities/DocumentItem" },
+      "description": "Documents, photos, and files linked to works"
+    }
+  }
+}

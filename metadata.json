@@ -1,0 +1,6 @@
+{
+  "name": "RDO Inteligente",
+  "description": "Gestão inteligente do dia a dia da sua obra com inteligência artificial para elaboração, gestão e consulta de Relatórios Diários de Obra.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
